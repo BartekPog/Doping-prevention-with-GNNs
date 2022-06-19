@@ -30,7 +30,7 @@ We’ve provided both the measured and the specific gravity-corrected concentrat
 
 The formula for the correction using specific gravity is:
 
-<img src="https://latex.codecogs.com/gif.latex?Conc_corr = Conc\_measured\cdot\frac{1.02 - 1}{SG-1}" />
+<img src="https://latex.codecogs.com/gif.latex?Conc_corr=Conc\_measured\cdot\frac{1.02-1}{SG-1}" />
 
 
 
