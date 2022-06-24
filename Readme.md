@@ -2,8 +2,8 @@
 Sports officials worldwide face incredible challenges due to the unfair means of practices performed by the athletes to improve their performance in the game. One of the methods is **sample swapping**. Some athletes try to swap their doped urine samples with their clean urine samples or from another individual to pass the doping test. The project aims to study the steroid profile and **develop a model based on graph networks** to detect the suspicious activities of athlete.
 
 ## Tasks
-- [ ] Understanding the problem statement and the domain of steroid doping.
-- [ ] Developing a graph neural network model to detect the sample swapping cases.
+- [ ] Understanding the problem statement and the domain of steroid doping. &#8592;
+- [ ] Developing a graph neural network model to detect the sample swapping cases. &#8592;
 - [ ] Interpretation of the results.
 - [ ] Developing a final prototype for the end-user.
 - [ ] Bonus: Use the advantage of Quantum Networks in model development.
@@ -25,12 +25,12 @@ df = DataPreprocessor().get_dataframe()
 
 | Field | Description |
 | ------- | ------ |
-| **athlete_id** | the athlete identifier after swapping|
+| ~~ID_random~~ &#8594; **athlete_id** | the athlete identifier after swapping|
 | **athlete_id_real** | the athlete identifier - ground truth |
 | **is_swapped** | whether the athlete is swapped or not |
 | **is_male** | True or False | 
-| ~~SpecificGravity~~ specific_gravity | the measured “density” of the urine sample, which is used to correct for differences in urine concentration due to factors such as hydration state. The SG is used to calculated the corrected concentrations of the steroid profile, denoted by “corr” below. |
-| ~~In Comp~~ -> **in_competition** | was the sample taken in competition or not (Y/N) |
+| ~~SpecificGravity~~ &#8594; specific_gravity | the measured “density” of the urine sample, which is used to correct for differences in urine concentration due to factors such as hydration state. The SG is used to calculated the corrected concentrations of the steroid profile, denoted by “corr” below. |
+| ~~In Comp~~ &#8594; **in_competition** | was the sample taken in competition or not (Y/N) |
 | adiol | (ng/mL)  5αAdiol = 5α-Androstane-3α,17β-diol |
 | bdiol | (ng/mL) 5βAdiol = 5β-Androstane-3α,17β-diol |
 | androsterone | (ng/mL) Andro |
@@ -50,7 +50,7 @@ df = DataPreprocessor().get_dataframe()
 | testosterone_corr | (ng/mL) corrected by specific gravity |
 | ~~ID_random~~ | a random athlete identifier |
 | ~~Gender~~| M or F |
-| ~~Total Observation~~ -> **total_observations**| total number of samples collected for that particular athlete i.e. total no. of samples in the longitudinal steroid profile of that particular athlete |
+| ~~Total Observation~~ &#8594; **total_observations**| total number of samples collected for that particular athlete i.e. total no. of samples in the longitudinal steroid profile of that particular athlete |
 
 
 
