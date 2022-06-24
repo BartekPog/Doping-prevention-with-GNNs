@@ -1,1 +1,0 @@
-Put the data.xlsx file in the data folder.

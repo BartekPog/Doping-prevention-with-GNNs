@@ -1,3 +1,6 @@
 references
 .ipynb_checkpoints
 data/*.xlsx
+data/*.csv
+.DS_Store
+**/.DS_Store
