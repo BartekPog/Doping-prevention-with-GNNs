@@ -27,6 +27,8 @@ df = DataPreprocessor().get_dataframe()
 | ------- | ------ |
 | ~~ID_random~~ &#8594; **athlete_id** | the athlete identifier after swapping|
 | **athlete_id_real** | the athlete identifier - ground truth |
+| **sample_id** | the sample identifier|
+| **swapped_with_sample_id** | identifier of sample with which the sample has been swapped |
 | **is_swapped** | whether the athlete is swapped or not |
 | **is_male** | True or False | 
 | ~~SpecificGravity~~ &#8594; specific_gravity | the measured “density” of the urine sample, which is used to correct for differences in urine concentration due to factors such as hydration state. The SG is used to calculated the corrected concentrations of the steroid profile, denoted by “corr” below. |
