@@ -29,7 +29,7 @@ df = DataPreprocessor().get_dataframe()
 | **athlete_id_real** | the athlete identifier - ground truth |
 | **sample_id** | the sample identifier|
 | **swapped_with_sample_id** | identifier of sample with which the sample has been swapped |
-| **is_swapped** | whether the athlete is swapped or not |
+| ~~is_swapped~~ | whether the athlete is swapped or not |
 | **is_male** | True or False | 
 | ~~SpecificGravity~~ &#8594; specific_gravity | the measured “density” of the urine sample, which is used to correct for differences in urine concentration due to factors such as hydration state. The SG is used to calculated the corrected concentrations of the steroid profile, denoted by “corr” below. |
 | ~~In Comp~~ &#8594; **in_competition** | was the sample taken in competition or not (Y/N) |
@@ -80,3 +80,40 @@ df = DataPreprocessor(data_path='data/data.xlsx', swap_rate=0.01).get_dataframe(
 
 raw_df = DataPreprocessor().get_raw_dataframe()
 ```
+
+# How to generate the graph object
+```python
+from src.graph_data_loader import graph_loader
+
+data = graph_loader()
+```
+# OR
+```python
+from src.graph_data_loader import graph_loader
+
+data = graph_loader(swap_rate)
+```
+
+Few examples of graph properties that can be viewed are provided in `GraphDataExp.ipynb`.
+
+Each graph node represents 1 data sample. Each node contains the following features.
+1. 'adiol'
+2. 'adiol_bdiol_ratio' 
+3. 'adiol_corr'
+4. 'adiol_e_ratio'
+5. 'andro_etio_ratio'
+6. 'andro_t_ratio'
+7. 'androsterone'
+8. 'androsterone_corr'
+9. 'bdiol'
+10. 'bdiol_corr'
+11. 'epitestosterone'
+12. 'epitestosterone_corr'
+13. 'etiocholanolone'
+14. 'etiocholanolone_corr'
+15. 'in_competition'
+16. 'is_male'
+17. 'specific_gravity'
+18. 't_e_ratio'
+19. 'testosterone'
+20. 'testosterone_corr'
