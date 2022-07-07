@@ -82,16 +82,31 @@ raw_df = DataPreprocessor().get_raw_dataframe()
 ```
 
 # How to generate the graph object
-```python
-from src.graph_data_loader import graph_loader
 
-data = graph_loader()
+1. Split the data into train and test sets using the following command:
 ```
-# OR
+python src/generate_splits.py
+```
+If your excel datafile is not in './data' directory, you can specify the path using: `--datapath <path>`.
+
+2. Generate train and test graphs:
+
+This can be done in two ways-
+* shuffled - An athelete in the test set may also be present in the training set (other samples of same athlete)
+* mutually_exclusive - Athletes belonging to the test set are not included in the training set (default)
+
 ```python
 from src.graph_data_loader import graph_loader
 
-data = graph_loader(swap_rate)
+train_graph, test_graph = graph_loader() # uses mutually_exclusive setting
+```
+The default swap_rate is 0.01 and by default there are no edges between the clusters of atheletes having the same 'athelete_id' (no edges between swapped samples).
+
+### To change the split_type, swap_rate, or get edges between the clusters, use:
+```python
+from src.graph_data_loader import graph_loader
+
+train_graph, test_graph = graph_loader('shuffled', new_swap_rate, edge_bw_swapped=True)
 ```
 
 Few examples of graph properties that can be viewed are provided in `GraphDataExp.ipynb`.
