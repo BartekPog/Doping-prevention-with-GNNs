@@ -21,6 +21,7 @@ def graph_loader(split_type='mutually_exclusive', swap_rate=0.01, edge_bw_swappe
     # generate training graph
     train_df = DataPreprocessor(data_path=train_path, swap_rate=swap_rate).get_dataframe()
     train_df = train_df.sort_values('sample_id')
+    train_target = ~train_df['swapped_with_sample_id'].isna()
 
     train_nodes = get_nodes(train_df)
     train_edges = get_edges(train_df, edge_bw_swapped)
@@ -29,12 +30,14 @@ def graph_loader(split_type='mutually_exclusive', swap_rate=0.01, edge_bw_swappe
     # generate test graph
     test_df = DataPreprocessor(data_path=test_path, swap_rate=swap_rate).get_dataframe()
     test_df = test_df.sort_values('sample_id')
+    test_target = ~test_df['swapped_with_sample_id'].isna()
 
     test_nodes = get_nodes(test_df)
     test_edges = get_edges(test_df, edge_bw_swapped)
     test_data = Data(x=test_nodes, edge_index=test_edges.t().contiguous())
+    
 
-    return [train_data, test_data]
+    return [train_data, train_target, test_data, test_target]
 
 def get_nodes(df):
     feature_vec = df.drop(['athlete_id', 'athlete_id_real', 'sample_id', 'swapped_with_sample_id', 'total_observations'], axis = 1)
