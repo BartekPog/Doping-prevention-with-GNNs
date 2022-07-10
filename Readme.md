@@ -132,3 +132,19 @@ Each graph node represents 1 data sample. Each node contains the following featu
 18. 't_e_ratio'
 19. 'testosterone'
 20. 'testosterone_corr'
+
+# How to use Train and Predict using PyGod Models
+
+```python
+from src.models import PyGod
+
+model = PyGod(model_name, swap_rate)
+
+model.train(train_graph)
+
+train_outlier_scores = model.get_train_scores()
+
+test_outlier_scores = model.predict(test_graph)
+```
+
+Valid Model Names: 'mlpae', 'gcnae', 'dominant', 'scan', 'radar', 'anomalous', 'one', 'done', 'adone', 'gaan', 'ocgnn'
