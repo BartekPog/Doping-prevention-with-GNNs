@@ -9,6 +9,8 @@ plotly = "*"
 jupyter = "*"
 openpyxl = "*"
 seaborn = "*"
+flask = "*"
+applicationinsights = "*"
 
 [dev-packages]
 
