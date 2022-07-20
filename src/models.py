@@ -1,5 +1,5 @@
 from git import Object
-import numpy
+import numpy as np
 import torch
 from pygod.models import *
 
@@ -7,21 +7,22 @@ class PyGod(Object):
     '''
     Wrapper class for PyGod Models
     '''
-    def __init__(self, model_name=None, contamination=0.1):
+    def __init__(self, model_name=None, contamination=0.01, supervised=False):
 
         self.contamination = contamination
+        self.supervised = supervised
 
         if model_name == 'mlpae':
             '''
             Vanila Multilayer Perceptron Autoencoder.
             '''
-            self.model = MLPAE(num_layers=4, epoch=20, contamination=self.contamination) 
+            self.model = MLPAE(num_layers=4, epoch=100, contamination=self.contamination) 
 
         elif model_name == 'gcnae':
             '''
             Vanila Graph Convolutional Networks Autoencoder.
             '''
-            self.model = GCNAE(num_layers=4, epoch=20, contamination=self.contamination)
+            self.model = GCNAE(num_layers=4, epoch=100, contamination=self.contamination)
 
         elif model_name == 'dominant':
             '''
@@ -32,7 +33,7 @@ class PyGod(Object):
             decoders are defined as structure anomaly score and attribute
             anomaly score, respectively.
             '''
-            self.model = DOMINANT(num_layers=4, epoch=20, contamination=self.contamination)
+            self.model = DOMINANT(num_layers=4, epoch=100, contamination=self.contamination)
 
         elif model_name == 'scan':
             '''
@@ -108,12 +109,14 @@ class PyGod(Object):
             support vector machine, but in the embedding space after feeding
             towards several layers of GCN.
             '''
-            self.model = OCGNN(contamination=self.contamination, epoch=5)
+            self.model = OCGNN(contamination=self.contamination, epoch=20)
         else: 
             print("Invalid model")
             self.model = None
 
     def train(self, train_graph):
+        if self.supervised:
+            self.model.fit(train_graph, np.asarray(train_graph.y))    
         self.model.fit(train_graph)
 
     def get_train_scores(self):
