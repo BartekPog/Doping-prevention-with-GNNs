@@ -58,10 +58,10 @@ class DataPreprocessor:
             return index_mapping[row.name]
         return row.athlete_id_real
 
-    def _get_swap_mapping(self, df, swap_rate=0.01):
+    def _get_swap_mapping(self, df, swap_rate):
         df_reduced = df[df['total_observations'] > 3] # remove samples with less than 3 observations
 
-        swap_rate = swap_rate if swap_rate else 0.01
+        swap_rate = swap_rate
         swaps_number = int(len(df)*swap_rate/2)
 
         indices_to_swap_from = random.sample(list(df_reduced.index), swaps_number)
