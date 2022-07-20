@@ -28,9 +28,9 @@ def shuffled_splits(df, frac ,path):
 
     np.random.seed(100)
     shuffled_df = df.sample(frac=1)
-    train_df_shuffled, test_df_shuffled = np.split(shuffled_df, [int(frac*len(shuffled_df))])
+    train_df_shuffled, _ = np.split(shuffled_df, [int(frac*len(shuffled_df))])
     train_df_shuffled = train_df_shuffled.reset_index(drop=True)
-    test_df_shuffled = test_df_shuffled.reset_index(drop=True)
+    test_df_shuffled = shuffled_df.reset_index(drop=True)
 
     train_df_shuffled.to_excel(path + 'train.xlsx', index=False) 
     test_df_shuffled.to_excel(path + 'test.xlsx', index=False) 
