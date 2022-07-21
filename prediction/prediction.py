@@ -42,16 +42,24 @@ class Predictor:
             'total_observations': new_sample_count,
         })
 
-        self.df = self.df.iloc[:len(self.df)-2].copy()
+        new_df = pd.DataFrame([new_sample])
+        new_df = new_df[self.df.columns]
 
-        df = self.df.append(new_sample, ignore_index=True).reset_index(drop=True)
-        
+        df = pd.concat([self.df, new_df])
+
         self.df = df.copy()
+
+        self.df = self.df.iloc[10:].copy()
+
+
         sample_df_index = self.df[self.df.sample_id == new_sample_id].index[0]
+
+
         
 
         return sample_df_index
 
+        # return 0
 
     def get_graph_data(self, sample_dict):
         new_sample_index = self.add_sample_to_dataframe(sample_dict)
