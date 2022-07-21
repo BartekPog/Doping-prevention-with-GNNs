@@ -42,7 +42,17 @@ def route_template(template):
 def verify_doping():
 
     if request.method == "POST":
-        hormone_1 = request.form['h1']
+        #hormone_1 = request.form['h1']
+        specific_gravity = request.form['specific_gravity']
+        in_comp = request.form['in_comp']
+        adiol = request.form['adiol']
+        andro = request.form['andro']
+        etio = request.form['etio']
+        epito = request.form['epito']
+        testes = request.form['testes']
+        male = request.form['male']
+        athlete_id = request.form['athlete_id']
+
         print("hormone_1", hormone_1)
 
         # logic for processing for doping and modeling
