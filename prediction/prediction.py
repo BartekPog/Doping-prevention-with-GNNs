@@ -51,15 +51,10 @@ class Predictor:
 
         self.df = self.df.iloc[10:].copy()
 
-
         sample_df_index = self.df[self.df.sample_id == new_sample_id].index[0]
-
-
-        
 
         return sample_df_index
 
-        # return 0
 
     def get_graph_data(self, sample_dict):
         new_sample_index = self.add_sample_to_dataframe(sample_dict)
