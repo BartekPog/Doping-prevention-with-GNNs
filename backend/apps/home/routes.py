@@ -3,10 +3,17 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-from apps.home import blueprint
+import sys, os
+
+
 from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
+
+from apps.home import blueprint
+
+from prediction.prediction import Predictor
+
 
 
 @blueprint.route('/index')
@@ -42,11 +49,27 @@ def route_template(template):
 def verify_doping():
 
     if request.method == "POST":
-        hormone_1 = request.form['h1']
-        print("hormone_1", hormone_1)
+        sample_dict = {
+            'specific_gravity':  float(request.form['specific_gravity']),
+            'in_competition': bool(request.form['in_comp'] in {'1', "True", True, 'true', 'male', 'Yes', 'yes'}),
+            'adiol': float(request.form['adiol']),
+            'bdiol':  float(request.form['bdiol']),
+            'androsterone':  float(request.form['andro']),
+            'etiocholanolone':  float(request.form['etio']),
+            'epitestosterone':  float(request.form['epito']),
+            'testosterone':  float(request.form['testes']),
+            'is_male': bool(request.form['male'] in {'1', "True", True, 'true', 'male', 'Yes', 'yes'}),
+            'athlete_id': int(request.form['athlete_id']),
+        }
 
-        # logic for processing for doping and modeling
-        generated_message = "Based on our analysis we conclude that the provided sample do not corrospond to any levels of doping."
+        predictor = Predictor()
+        anomaly_score = predictor.predict_sample(sample_dict)
+
+        max_score = max(predictor.predictions)
+
+        percentage_score = 100*anomaly_score / max_score
+
+        generated_message = f"Based on comparsion of anamoly scores of this urine sample with other athletes we can say with {percentage_score:.2f}% confidence that it is swapped "
 
         return render_template('home/page-blank.html', generated_message = generated_message)
 
