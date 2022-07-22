@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} UI Tables {% endblock %} 
+{% block title %} UI Tables {% endblock %}
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -19,12 +19,12 @@
                             <div class="row align-items-center">
                                 <div class="col-md-12">
                                     <div class="page-header-title">
-                                        <h5 class="m-b-10">Bootstrap Basic Tables</h5>
+                                        <h5 class="m-b-10">Results</h5>
                                     </div>
                                     <ul class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
                                         <li class="breadcrumb-item"><a href="#!">Tables</a></li>
-                                        <li class="breadcrumb-item"><a href="javascript:">Basic Tables</a></li>
+                                        <li class="breadcrumb-item"><a href="javascript:">Results Tables</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -39,48 +39,103 @@
                                 <div class="col-xl-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h5>Basic Table</h5>
-                                            <span class="d-block m-t-5">use class <code>table</code> inside table element</span>
+                                            <h5>AOC values obtained for each of the Algorithms in Inductive Setting</h5>
+                                            <!--<span class="d-block m-t-5">use class <code>table</code> inside table element</span> -->
                                         </div>
+
                                         <div class="card-block table-border-style">
                                             <div class="table-responsive">
                                                 <table class="table">
                                                     <thead>
                                                         <tr>
                                                             <th>#</th>
-                                                            <th>First Name</th>
-                                                            <th>Last Name</th>
-                                                            <th>Username</th>
+                                                            <th>Algorithm</th>
+                                                            <th>AOC Value</th>
+                                                            <!-- <th>Username</th> -->
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
                                                             <th scope="row">1</th>
-                                                            <td>Mark</td>
-                                                            <td>Otto</td>
-                                                            <td>@mdo</td>
+                                                            <td>GCNAE</td>
+                                                            <td>0.73</td>
+
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">2</th>
-                                                            <td>Jacob</td>
-                                                            <td>Thornton</td>
-                                                            <td>@fat</td>
+                                                            <td>OCGNN</td>
+                                                            <td>0.50</td>
+
+
                                                         </tr>
                                                         <tr>
                                                             <th scope="row">3</th>
-                                                            <td>Larry</td>
-                                                            <td>the Bird</td>
-                                                            <td>@twitter</td>
+                                                            <td>DOMINANT</td>
+                                                            <td>0.42</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                                 <!-- [ basic-table ] end -->
 
                                 <!-- [ Hover-table ] start -->
+
+
+                                <!-- [ basic-table ] start -->
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>AOC values obtained for each of the Algorithms in Transductive Setting</h5>
+                                            <!--<span class="d-block m-t-5">use class <code>table</code> inside table element</span> -->
+                                        </div>
+
+                                        <div class="card-block table-border-style">
+                                            <div class="table-responsive">
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>#</th>
+                                                            <th>Algorithm</th>
+                                                            <th>AOC Value</th>
+                                                            <!-- <th>Username</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">1</th>
+                                                            <td>SCAN</td>
+                                                            <td>0.50</td>
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">2</th>
+                                                            <td>RADAR</td>
+                                                            <td>0.48</td>
+
+
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">3</th>
+                                                            <td>DONE</td>
+                                                            <td>0.48</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+
+                                <!--
                                 <div class="col-xl-12">
                                     <div class="card">
                                         <div class="card-header">
@@ -123,9 +178,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- [ Hover-table ] end -->
 
-                                <!-- [ stiped-table ] start -->
+
+
                                 <div class="col-xl-12">
                                     <div class="card">
                                         <div class="card-header">
@@ -168,14 +223,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- [ stiped-table ] end -->
+
+
+
                             </div>
+                        -->
                             <!-- [ Main Content ] end -->
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </div>
     </section>
     <!-- [ Main Content ] end -->
