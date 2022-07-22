@@ -11,6 +11,9 @@ from   sys import exit
 from apps.config import config_dict
 from apps import create_app, db
 
+import sys
+sys.path.append("..") 
+
 # WARNING: Don't run with debug turned on in production!
 DEBUG = (os.getenv('DEBUG', 'False') == 'True')
 
@@ -39,4 +42,4 @@ if DEBUG:
     app.logger.info('ASSETS_ROOT      = ' + app_config.ASSETS_ROOT )
 
 if __name__ == "__main__":
-    app.run()
+    app.run(port=443,host="0.0.0.0", threaded=True, debug=True)
