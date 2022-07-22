@@ -14,7 +14,6 @@ from apps.home import blueprint
 
 from prediction.prediction import Predictor
 
-predictor = Predictor()
 
 
 @blueprint.route('/index')
@@ -51,27 +50,26 @@ def verify_doping():
 
     if request.method == "POST":
         sample_dict = {
-            'specific_gravity': request.form['specific_gravity'],
-            'in_competition': request.form['in_comp'],
-            'adiol': request.form['adiol'],
-            'bdiol':request.form['bdiol'],
-            'androsterone': request.form['andro'],
-            'etiocholanolone': request.form['etio'],
-            'epitestosterone': request.form['epito'],
-            'testosterone': request.form['testes'],
-            'is_male': request.form['male'] in {1, "True", True, 'true', 'male'},
-            'athlete_id': request.form['athlete_id'],
+            'specific_gravity':  float(request.form['specific_gravity']),
+            'in_competition': bool(request.form['in_comp'] in {'1', "True", True, 'true', 'male', 'Yes', 'yes'}),
+            'adiol': float(request.form['adiol']),
+            'bdiol':  float(request.form['bdiol']),
+            'androsterone':  float(request.form['andro']),
+            'etiocholanolone':  float(request.form['etio']),
+            'epitestosterone':  float(request.form['epito']),
+            'testosterone':  float(request.form['testes']),
+            'is_male': bool(request.form['male'] in {'1', "True", True, 'true', 'male', 'Yes', 'yes'}),
+            'athlete_id': int(request.form['athlete_id']),
         }
-        
-        print("sample raw readings: ", sample_dict)
+
+        predictor = Predictor()
         anomaly_score = predictor.predict_sample(sample_dict)
 
         max_score = max(predictor.predictions)
-        relative_score = anomaly_score / max_score
 
-        # logic for processing for doping and modeling
-        generated_message = f"The relative anomaly score is {relative_score:.2f}."
-        # generated_message = "Based on our analysis we conclude that the provided sample do not corrospond to any levels of doping."
+        percentage_score = 100*anomaly_score / max_score
+
+        generated_message = f"Based on comparsion of anamoly scores of this urine sample with other athletes we can say with {percentage_score:.2f}% confidence that it is swapped "
 
         return render_template('home/page-blank.html', generated_message = generated_message)
 

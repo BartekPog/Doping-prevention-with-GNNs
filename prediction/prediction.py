@@ -11,14 +11,11 @@ from src.data_preparation import DataPreprocessor
 from src.graph_data_loader import get_edges, get_nodes
 
 
-
 class Predictor:
-    def __init__(self, model_path='../../../../../models/gcnae.pkl'):
+    def __init__(self, model_path='../models/gcnae.pkl', data_path='../data/data.xlsx'):
         
-        raise Exception(str(os.listdir('../')))
-
         self.model = self.load_model(model_path)
-        self.df = DataPreprocessor(data_path='data/data.xlsx', swap_rate=0.0).get_dataframe()
+        self.df = DataPreprocessor(data_path=data_path, swap_rate=0.0).get_dataframe()
         self.predictions = None
 
     @staticmethod
@@ -60,14 +57,21 @@ class Predictor:
         new_df = pd.DataFrame([new_sample])
         new_df = new_df[self.df.columns]
 
-        df = pd.concat([self.df, new_df])
+        same_athlete = self.df[self.df.athlete_id == new_sample['athlete_id']].copy()
+        others = self.df[self.df.athlete_id != new_sample['athlete_id']].iloc[4500:].copy()
+
+        df = pd.concat([same_athlete, others, new_df]).reset_index(drop=True)
 
         self.df = df.copy()
 
-        self.df = self.df.iloc[10:].copy()
+        self.df['sample_id'] = self.df.index
 
-        sample_df_index = self.df[self.df.sample_id == new_sample_id].index[0]
+        
+        print(self.df.iloc[-3:]) 
 
+        sample_df_index = len(self.df) -1
+
+        # return 0
         return sample_df_index
 
 
@@ -86,37 +90,11 @@ class Predictor:
 
 
     def fill_sample_dict(self, sample_dict):
-        # base_sample = {
-        #     'athlete_id_real': None,
-        #     'specific_gravity': 1.016,
-        #     'in_competition': True,
-        #     'adiol': 27.22,
-        #     'bdiol': 144.12,
-        #     'androsterone': 2254.7,
-        #     'etiocholanolone': 2364.2,
-        #     'epitestosterone': 6.08,
-        #     'testosterone': 5.92,
-        #     't_e_ratio': 0.85,
-        #     'andro_t_ratio': 380.86,
-        #     'andro_etio_ratio': 0.95,
-        #     'adiol_bdiol_ratio': 0.19,
-        #     'adiol_e_ratio': 4.48,
-        #     'adiol_corr': 34.03,
-        #     'bdiol_corr': 180.15,
-        #     'androsterone_corr': 2818.38,
-        #     'etiocholanolone_corr': 2955.25,
-        #     'epitestosterone_corr': 7.6,
-        #     'testosterone_corr': 7.4,
-        #     #     'total_observations': 4,
-        #     'is_male': False,
-        #     #     'sample_id': 40,
-        #     'athlete_id': 153
-        # }
-        
-        # base_sample.update(sample_dict)
-
         sample_dict = self.fill_corrected_scores(sample_dict=sample_dict)
         sample_dict = self.fill_ratio_scores(sample_dict=sample_dict)
+
+        sample_dict['swapped_with_sample_id'] = None
+        sample_dict['athlete_id_real'] = None
 
         return sample_dict
 
@@ -131,9 +109,9 @@ class Predictor:
         }
 
         sample_dict.update({
-            name: numerator / denominator
+            name: sample_dict[numerator] / sample_dict[denominator]
             for name, (numerator, denominator)
-            in ratio_mapping
+            in ratio_mapping.items()
         })
 
         return sample_dict
@@ -146,7 +124,7 @@ class Predictor:
         specific_gravity = sample_dict['specific_gravity']
 
         sample_dict.update({
-            f"{hormone}_corr": sample_dict['hormone'] * (1.02 - 1)/(specific_gravity - 1)
+            f"{hormone}_corr": sample_dict[hormone] * (1.02 - 1)/(specific_gravity - 1)
             for hormone in raw_hormones
         })
 
